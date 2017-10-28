@@ -40,5 +40,29 @@ final class HorizontalPlane: SCNNode {
         geometry = planeGeometry
         position = SCNVector3Make(anchor.center.x, 0, anchor.center.z)
     }
+    
+    func createLavaPlaneNode(anchor: ARPlaneAnchor) -> SCNNode {
+        // Create a SceneKit plane to visualize the node using its position and extent.
+        // Create the geometry and its materials
+        let plane = SCNPlane(width: CGFloat(anchor.extent.x), height: CGFloat(anchor.extent.z))
+        
+        let lavaImage = #imageLiteral(resourceName: "lava")
+        let lavaMaterial = SCNMaterial()
+        lavaMaterial.diffuse.contents = lavaImage
+        lavaMaterial.isDoubleSided = true
+        
+        plane.materials = [lavaMaterial]
+        
+        // Create a node with the plane geometry we created
+        let planeNode = SCNNode(geometry: plane)
+        planeNode.position = SCNVector3Make(anchor.center.x, 0, anchor.center.z)
+        
+        // SCNPlanes are vertically oriented in their local coordinate space.
+        // Rotate it to match the horizontal orientation of the ARPlaneAnchor.
+        planeNode.transform = SCNMatrix4MakeRotation(-Float.pi / 2, 1, 0, 0)
+        
+        return planeNode
+    }
+    
 
 }

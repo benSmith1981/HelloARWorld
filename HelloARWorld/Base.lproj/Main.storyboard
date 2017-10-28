@@ -30,20 +30,18 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ooq-ok-jaV">
-                                <rect key="frame" x="283" y="617" width="84" height="30"/>
+                                <rect key="frame" x="289" y="617" width="72" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Add Zombie"/>
+                                <state key="normal" title="Add World"/>
                                 <connections>
                                     <action selector="addZombie:" destination="Ef9-uC-m2a" eventType="touchUpInside" id="Pib-Zv-6n1"/>
+                                    <action selector="showWorldOrSphere:" destination="Ef9-uC-m2a" eventType="touchUpInside" id="sIG-Rh-Jup"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GXa-Ai-AVF">
                                 <rect key="frame" x="198" y="617" width="58" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Add text"/>
-                                <connections>
-                                    <action selector="addText:" destination="Ef9-uC-m2a" eventType="touchUpInside" id="vCq-Ce-ObX"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cb7-JX-DLA">
                                 <rect key="frame" x="92" y="617" width="73" height="30"/>

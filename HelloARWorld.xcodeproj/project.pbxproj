@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B55502A31FA11494009EDA48 /* HorizontalPlane.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55502A21FA11493009EDA48 /* HorizontalPlane.swift */; };
+		B59085101FA5384B009C8AA6 /* MyCameraCoordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = B590850F1FA5384B009C8AA6 /* MyCameraCoordinates.swift */; };
 		B5AB2AB11F9684ED00553E6D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5AB2AB01F9684ED00553E6D /* AppDelegate.swift */; };
 		B5AB2AB31F9684ED00553E6D /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = B5AB2AB21F9684ED00553E6D /* art.scnassets */; };
 		B5AB2AB51F9684ED00553E6D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5AB2AB41F9684ED00553E6D /* ViewController.swift */; };
@@ -16,6 +17,10 @@
 		B5AB2ABD1F9684ED00553E6D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5AB2ABB1F9684ED00553E6D /* LaunchScreen.storyboard */; };
 		B5AB2AC81F9684ED00553E6D /* HelloARWorldTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5AB2AC71F9684ED00553E6D /* HelloARWorldTests.swift */; };
 		B5AB2AD31F9684EE00553E6D /* HelloARWorldUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5AB2AD21F9684EE00553E6D /* HelloARWorldUITests.swift */; };
+		B5FA38381FA52C5600AB7E5B /* Zombie.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FA38371FA52C5600AB7E5B /* Zombie.swift */; };
+		B5FA383A1FA52E1B00AB7E5B /* Earth.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FA38391FA52E1B00AB7E5B /* Earth.swift */; };
+		B5FA383C1FA5340900AB7E5B /* Shapes.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FA383B1FA5340900AB7E5B /* Shapes.swift */; };
+		B5FA383E1FA5341800AB7E5B /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FA383D1FA5341800AB7E5B /* Text.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +42,7 @@
 
 /* Begin PBXFileReference section */
 		B55502A21FA11493009EDA48 /* HorizontalPlane.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorizontalPlane.swift; sourceTree = "<group>"; };
+		B590850F1FA5384B009C8AA6 /* MyCameraCoordinates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCameraCoordinates.swift; sourceTree = "<group>"; };
 		B5AB2AAD1F9684ED00553E6D /* HelloARWorld.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloARWorld.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5AB2AB01F9684ED00553E6D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B5AB2AB21F9684ED00553E6D /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
@@ -51,6 +57,10 @@
 		B5AB2ACE1F9684ED00553E6D /* HelloARWorldUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HelloARWorldUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5AB2AD21F9684EE00553E6D /* HelloARWorldUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelloARWorldUITests.swift; sourceTree = "<group>"; };
 		B5AB2AD41F9684EE00553E6D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B5FA38371FA52C5600AB7E5B /* Zombie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Zombie.swift; sourceTree = "<group>"; };
+		B5FA38391FA52E1B00AB7E5B /* Earth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Earth.swift; sourceTree = "<group>"; };
+		B5FA383B1FA5340900AB7E5B /* Shapes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shapes.swift; sourceTree = "<group>"; };
+		B5FA383D1FA5341800AB7E5B /* Text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Text.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +114,11 @@
 				B5AB2AB01F9684ED00553E6D /* AppDelegate.swift */,
 				B5AB2AB21F9684ED00553E6D /* art.scnassets */,
 				B5AB2AB41F9684ED00553E6D /* ViewController.swift */,
+				B590850F1FA5384B009C8AA6 /* MyCameraCoordinates.swift */,
+				B5FA383B1FA5340900AB7E5B /* Shapes.swift */,
+				B5FA383D1FA5341800AB7E5B /* Text.swift */,
+				B5FA38371FA52C5600AB7E5B /* Zombie.swift */,
+				B5FA38391FA52E1B00AB7E5B /* Earth.swift */,
 				B55502A21FA11493009EDA48 /* HorizontalPlane.swift */,
 				B5AB2AB61F9684ED00553E6D /* Main.storyboard */,
 				B5AB2AB91F9684ED00553E6D /* Assets.xcassets */,
@@ -267,8 +282,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				B55502A31FA11494009EDA48 /* HorizontalPlane.swift in Sources */,
+				B5FA38381FA52C5600AB7E5B /* Zombie.swift in Sources */,
 				B5AB2AB51F9684ED00553E6D /* ViewController.swift in Sources */,
+				B5FA383E1FA5341800AB7E5B /* Text.swift in Sources */,
 				B5AB2AB11F9684ED00553E6D /* AppDelegate.swift in Sources */,
+				B5FA383A1FA52E1B00AB7E5B /* Earth.swift in Sources */,
+				B59085101FA5384B009C8AA6 /* MyCameraCoordinates.swift in Sources */,
+				B5FA383C1FA5340900AB7E5B /* Shapes.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
