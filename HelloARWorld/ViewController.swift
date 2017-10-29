@@ -11,8 +11,9 @@ import SceneKit
 import ARKit
 
 protocol SceneViewController {
-    func addNodeToSceneView(node:SCNNode)
+    func addNodeToSceneView(node:SCNNode,at position: SCNVector3)
     func addNodeToPointOfView(node:SCNNode)
+    func addNodeAtCameraPosition(node:SCNNode)
     func placeNodeInfrontOfCamera(node:SCNNode) 
 }
 
@@ -54,21 +55,18 @@ class ViewController: UIViewController, ARSCNViewDelegate, SceneViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureSceneView()
         createSceneViewObjects()
-//        setupTapGestures()
+        setupTapGestures()
         setupSwipeGestures()
     }
     
     func createSceneViewObjects() {
         earth = Earth.init()
         earth.delegate = self
-        
-//        text = Text.init(sceneView: sceneView, textToDisplay: "Hello World!", camCoords: camCoords)
-//        zombie = Zombie.init(sceneView: sceneView, camCoords: camCoords)
-//        zombie.loadAnimations()
-       
-        shape = Shapes.init(sceneView: sceneView)
+
+        text = Text.init(textToDisplay: "Hello World!")
+        zombie = Zombie.init()
+        shape = Shapes.init()
     }
     
     func setupSwipeGestures() {
@@ -80,6 +78,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, SceneViewController {
         swipeRight.direction = .right
         sceneView.addGestureRecognizer(swipeRight)
     }
+    
     func setupTapGestures() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         sceneView.addGestureRecognizer(tapGesture)
@@ -101,12 +100,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, SceneViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        // Create a session configuration
-        let configuration = ARWorldTrackingConfiguration()
-        configuration.planeDetection = .horizontal
-        // Run the view's session
-        sceneView.session.run(configuration)
+        configureSceneView()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -115,7 +109,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, SceneViewController {
         // Pause the view's session
         sceneView.session.pause()
     }
-    
+
+//MARK: Zombie Animations
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let location = touches.first!.location(in: sceneView)
 
@@ -125,21 +120,31 @@ class ViewController: UIViewController, ARSCNViewDelegate, SceneViewController {
 
         let hitResults: [SCNHitTestResult]  = sceneView.hitTest(location, options: hitTestOptions)
 
-//        if hitResults.first != nil {
-//            if(zombie.idle) {
-//                playAnimation(key: "transition")
-//            } else {
-//                stopAnimation(key: "transition")
-//            }
+        if hitResults.first != nil {
+            if(zombie.idle) {
+                zombie.idle = false
+                zombie.transition = true
+                playAnimation(key: "transition")
+            } else if(zombie.transition) {
+                zombie.idle = false
+                zombie.transition = false
+                zombie.walking = true
+                playAnimation(key: "walking")
+            } else {
+                stopAnimation(key: "walking")
+            }
 //            zombie.idle = !zombie.idle
-//            return
-//        }
+            return
+        }
     }
     
     func playAnimation(key: String) {
         // Add the animation to start playing it right away
+//        let sequence = SCNAction.sequence(zombie.animations[key]!) // will be executed one by one
+//        let node = SCNNode()
+//        node.runAction(sequence, completionHandler:nil)
+        
         sceneView.scene.rootNode.addAnimation(zombie.animations[key]!, forKey: key)
-
     }
     
     func stopAnimation(key: String) {
@@ -151,7 +156,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, SceneViewController {
         super.didReceiveMemoryWarning()
         // Release any cached data, images, etc that aren't in use.
     }
-    
+
+//MARK: AR Plane Detection
     // When a plane is detected, make a planeNode for it
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         guard state == .searchPlanes || state == .selectPlane else {
@@ -163,7 +169,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, SceneViewController {
                 state = .selectPlane
             }
             let horizontalPlane = HorizontalPlane(anchor: anchor)
-//            let plane = createPlaneNode(anchor: anchor)
             planes[anchor] = horizontalPlane
             node.addChildNode(horizontalPlane)
         }
@@ -185,13 +190,19 @@ class ViewController: UIViewController, ARSCNViewDelegate, SceneViewController {
         if let plane = planes.removeValue(forKey: anchor) {
             if plane == self.selectedPlane {
                 let nextPlane = planes.values.first!
-//                gameController.addToNode(rootNode: nextPlane)
+//                zombie.addToNode(rootNode: nextPlane)
 //                gameController.updateGameSceneForAnchor(anchor: nextPlane.anchor)
             }
             plane.removeFromParentNode()
         }
     }
+
+    @IBAction func showWorldOrSphere(_ sender: Any) {
+        addNodeToPointOfView(node: earth.spotLightNode)
+        placeNodeInfrontOfCamera(node: earth.worldWrapperNode)
+    }
     
+//MARK: Tap and Swipe gestures
     @objc func handleTap(_ gestureRecognize: UIGestureRecognizer) {
         let p = gestureRecognize.location(in: sceneView)
         let hitResults = sceneView.hitTest(p, options: [:])
@@ -201,17 +212,11 @@ class ViewController: UIViewController, ARSCNViewDelegate, SceneViewController {
                 let selectedPlane = result.node as? HorizontalPlane {
                 self.selectedPlane = selectedPlane
                 let planeNode = selectedPlane.createLavaPlaneNode(anchor: selectedPlane.anchor)
-//                sceneView.scene.rootNode.addChildNode(planeNode)
                 state = .startGame
-//                gameController.addToNode(rootNode: selectedPlane.parent!)
+                zombie.addToNode(rootNode: selectedPlane.parent!)
 //                gameController.updateGameSceneForAnchor(anchor: selectedPlane.anchor)
             }
         }
-    }
-
-    @IBAction func showWorldOrSphere(_ sender: Any) {
-        addNodeToPointOfView(node: earth.spotLightNode)
-        placeNodeInfrontOfCamera(node: earth.worldWrapperNode)
     }
     
     @objc func swipeRight(_ swipeGestureRecognize: UISwipeGestureRecognizer) {
@@ -221,23 +226,60 @@ class ViewController: UIViewController, ARSCNViewDelegate, SceneViewController {
     @objc func swipeLeft(_ swipeGestureRecognize: UISwipeGestureRecognizer) {
         earth.rotateNode(node: earth.worldWrapperNode, direction: -2)
     }
+    
     @IBAction func helloWorld(_ sender: Any) {
-        text.showHelloWorld()
+        placeNodeInfrontOfCamera(node: text.helloWorldNode)
     }
     
     @IBAction func addCube(_ sender: Any) {
-        sceneView.scene.rootNode.addChildNode(shape.cubeNode)
+        placeNodeInfrontOfCamera(node: shape.cubeNode)
     }
     
-    //Mark: Delegate functions to add nodes to view
-    func addNodeToSceneView(node:SCNNode){
-        let pointOfView = self.sceneView.pointOfView
-        node.simdPosition = pointOfView!.simdPosition + (pointOfView?.simdWorldFront)! * 0.5
+    @IBAction func adBillboard(_ sender: Any) {
+        placeNodeInfrontOfCamera(node: text.billBoardNode)
+    }
+    
+//MARK: Scene View Session interrupted delegates
+
+    func resetARSession() {
+        // Called by sessionInterruptionDidEnd
+        
+        sceneView.session.pause()
+        sceneView.scene.rootNode.enumerateChildNodes { (node, stop) in
+            node.removeFromParentNode() }
+        configureSceneView()
+    }
+    
+    func session(_ session: ARSession, didFailWithError error: Error) {
+        // Present an error message to the user
+        print("session didFailWithError")
+
+    }
+    
+    func sessionWasInterrupted(_ session: ARSession) {
+        // Inform the user that the session has been interrupted, for example, by presenting an overlay
+        print("sessionWasInterrupted")
+    }
+    
+    func sessionInterruptionEnded(_ session: ARSession) {
+        // Reset tracking and/or remove existing anchors if consistent tracking is required
+        resetARSession()
+    }
+
+//MARK: Delegate functions to add nodes to view
+    func addNodeToSceneView(node:SCNNode,at position: SCNVector3){
+        node.position = position
         self.sceneView.scene.rootNode.addChildNode(node)
     }
     
     func addNodeToPointOfView(node:SCNNode){
         self.sceneView.pointOfView?.addChildNode(node)
+    }
+    
+    func addNodeAtCameraPosition(node:SCNNode){
+        let cc = camCoords.getCameraCoordinates(sceneView: sceneView)
+        node.position = SCNVector3(cc.x, cc.y, cc.z)
+        self.sceneView.scene.rootNode.addChildNode(node)
     }
     
     func placeNodeInfrontOfCamera(node:SCNNode) {

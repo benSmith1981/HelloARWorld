@@ -12,30 +12,27 @@ import SceneKit
 import ARKit
 
 class Text {
-    var sceneView: ARSCNView!
     var textToDisplay: String
-    var camCoords: MyCameraCoordinates
-    init(sceneView: ARSCNView, textToDisplay: String, camCoords: MyCameraCoordinates) {
+    var billBoardNode = SCNNode()
+    var helloWorldNode = SCNNode()
+    
+    init(textToDisplay: String) {
         self.textToDisplay = textToDisplay
-        self.sceneView = sceneView
-        self.camCoords = camCoords
+        setupHelloWorld()
+        setupTextBillBoard()
     }
     
-    func showHelloWorld() {
+    func setupHelloWorld() {
         let textGeometry = SCNText(string: "Hello, World!", extrusionDepth: 1.0)
         //        textGeometry.font = UIFont(name: "Arial", size: 2)
         //        textGeometry.firstMaterial!.diffuse.contents = UIColor.red
-        let textNode = SCNNode(geometry: textGeometry)
-        textNode.scale = SCNVector3(0.01,0.01,0.01)
-        //        center(node: textNode)
-        let cc = camCoords.getCameraCoordinates(sceneView: sceneView)
-        textNode.position = SCNVector3(cc.x, cc.y, cc.z)//SCNVector3(0, 0, -0.5)
-        let pointOfView = sceneView.pointOfView
-        textNode.simdPosition = pointOfView!.simdPosition + (pointOfView?.simdWorldFront)! * 2
-        sceneView.scene.rootNode.addChildNode(textNode)
+        helloWorldNode = SCNNode(geometry: textGeometry)
+        helloWorldNode.scale = SCNVector3(0.01,0.01,0.01)
+        center(node: helloWorldNode)
+
     }
     
-    func showTextBillBoard(_ sender: Any) {
+    func setupTextBillBoard() {
         let textGeometry = SCNText(string: "Hello, World!", extrusionDepth: 1.0)
         textGeometry.font = UIFont(name: "Arial", size: 2)
         textGeometry.firstMaterial!.diffuse.contents = UIColor.red
@@ -43,23 +40,19 @@ class Text {
         
         center(node: textNode)
         
-        let cc = camCoords.getCameraCoordinates(sceneView: sceneView)
         textNode.scale = SCNVector3(0.01, 0.01, 0.01)
         
         let plane = SCNPlane(width: 0.2, height: 0.2)
         let blueMaterial = SCNMaterial()
         blueMaterial.diffuse.contents = UIColor.blue
         plane.firstMaterial = blueMaterial
-        let parentNode = SCNNode(geometry: plane) // this node will hold our text node
+        billBoardNode = SCNNode(geometry: plane) // this node will hold our text node
         
         let yFreeConstraint = SCNBillboardConstraint()
         yFreeConstraint.freeAxes = .Y // optionally
-        parentNode.constraints = [yFreeConstraint] // apply the constraint to the parent node
+        billBoardNode.constraints = [yFreeConstraint] // apply the constraint to the parent node
+        billBoardNode.addChildNode(textNode)
         
-        parentNode.position = SCNVector3(cc.x, cc.y, cc.z)//SCNVector3(0, 0, -0.5)
-        parentNode.addChildNode(textNode)
-        
-        sceneView.scene.rootNode.addChildNode(parentNode)
     }
     
     func center(node: SCNNode) {

@@ -12,7 +12,7 @@ import SceneKit
 import ARKit
 
 class Shapes {
-    let cubeNode:SCNNode!
+    var cubeNode:SCNNode!
     
     init() {
         addCube()

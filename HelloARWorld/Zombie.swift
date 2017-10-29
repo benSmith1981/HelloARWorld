@@ -17,9 +17,20 @@ class Zombie {
     var animations = [String: CAAnimation]()
     //Is the animation idle or not
     var idle:Bool = true
-    
+    var transition:Bool = false
+    var walking:Bool = true
+
+    let worldSceneNode = SCNNode()
+
     init() {
         loadAnimations()
+    }
+    
+    func addToNode(rootNode: SCNNode) {
+
+        worldSceneNode.removeFromParentNode()
+        rootNode.addChildNode(worldSceneNode)
+//        worldScene.scale = SCNVector3(0.1, 0.1, 0.1)
     }
     
     func loadAnimations () {
@@ -28,16 +39,15 @@ class Zombie {
         //        let idleScene = SCNScene(named: "art.scnassets/ZombieTransition/ZombieTransition.dae")!
         
         // This node will be parent of all the animation models
-        let node = SCNNode()
         
         // Add all the child nodes to the parent node
         for child in idleScene.rootNode.childNodes {
-            node.addChildNode(child)
+            worldSceneNode.addChildNode(child)
         }
         
         // Set up some properties
-        node.position = SCNVector3(0, -1, -2)
-        node.scale = SCNVector3(0.01, 0.01, 0.01)
+        worldSceneNode.position = SCNVector3(0, -1, -2)
+        worldSceneNode.scale = SCNVector3(0.01, 0.01, 0.01)
         
         // Add the node to the scene
         //        sceneView.scene.rootNode.addChildNode(node)

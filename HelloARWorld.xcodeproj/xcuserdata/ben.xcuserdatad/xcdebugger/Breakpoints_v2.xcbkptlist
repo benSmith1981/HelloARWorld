@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HelloARWorld/ViewController.swift"
-            timestampString = "530926624.228539"
+            timestampString = "530931603.153973"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "64"
-            endingLineNumber = "64"
+            startingLineNumber = "65"
+            endingLineNumber = "65"
             landmarkName = "createSceneViewObjects()"
             landmarkType = "7">
          </BreakpointContent>
@@ -26,7 +26,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HelloARWorld/MyCameraCoordinates.swift"
-            timestampString = "530926624.228845"
+            timestampString = "530931603.1628"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "20"
@@ -42,11 +42,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HelloARWorld/ViewController.swift"
-            timestampString = "530926624.228955"
+            timestampString = "530931603.162987"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "275"
-            endingLineNumber = "275">
+            startingLineNumber = "255"
+            endingLineNumber = "255"
+            landmarkName = "addNodeToPointOfView(node:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -56,11 +58,29 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HelloARWorld/ViewController.swift"
-            timestampString = "530926624.229087"
+            timestampString = "530931603.16382"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "279"
-            endingLineNumber = "279">
+            startingLineNumber = "265"
+            endingLineNumber = "265"
+            landmarkName = "placeNodeInfrontOfCamera(node:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "HelloARWorld/ViewController.swift"
+            timestampString = "530931603.164472"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "130"
+            endingLineNumber = "130"
+            landmarkName = "touchesBegan(_:with:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
